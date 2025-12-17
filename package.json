@@ -1,0 +1,45 @@
+{
+  "name": "huxy-server",
+  "version": "1.0.0-beta.0",
+  "description": "一个精炼、高性能的 Express.js 服务器模板，为现代 Node.js 应用程序设计，提供灵活的功能和最佳实践。",
+  "type": "module",
+  "module": "./src/index.js",
+  "exports": {
+    ".": {
+      "import": "./src/index.js"
+    },
+    "./*": {
+      "import": "./src/*.js"
+    }
+  },
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "NODE_ENV=development node --watch ./src/index.js"
+  },
+  "keywords": [
+    "express",
+    "nodejs",
+    "esm",
+    "server",
+    "proxy",
+    "huxy"
+  ],
+  "author": "ahyiru",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ahyiru/huxy-server/issues"
+  },
+  "homepage": "https://github.com/ahyiru/huxy-server#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahyiru/huxy-server.git"
+  },
+  "dependencies": {
+    "http-proxy-middleware": "^3.0.5",
+    "huxy-node-server": "^1.0.0-beta.1",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
