@@ -1,6 +1,6 @@
 {
   "name": "huxy-server",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "一个精炼、高性能的 Express.js 服务器模板，为现代 Node.js 应用程序设计，提供灵活的功能和最佳实践。",
   "type": "module",
   "module": "./src/index.js",
