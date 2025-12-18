@@ -5,15 +5,12 @@ const {startApp, logger} = huxyServer;
 const config = {
   port: 1234,
   apiPrefix: '/example',
-};
-const proxyConfig = {
+  // proxyConfig
   proxys: [{
     name: 'ollama',
     target: 'http://192.168.0.111:11434',
   }],
-};
-
-const jwtConfig = {
+  // jwtConfig
   secret: '1234',
   expiresIn: '1d',
 };
@@ -27,6 +24,6 @@ const callback = (huxyConfig, app) => {
   });
 };
 
-const huxyProxyServer = await startApp({config, proxyConfig, jwtConfig}, callback);
+const huxyProxyServer = await startApp(config, callback);
 
 logger.info(huxyProxyServer);

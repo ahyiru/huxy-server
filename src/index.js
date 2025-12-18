@@ -116,12 +116,12 @@ var k = {
   u = k;
 var L = (r, e) =>
     O({...u, ...r}, async (t, o, s) => {
-      (l(o, t), await e?.(t, o, s));
+      (await e?.(t, o, s), l(o, t));
     }),
   ce = L,
   he = (r, e) =>
     W({...u, ...r}, async (t, o, s) => {
-      (l(o, t), await e?.(t, o, s));
+      (await e?.(t, o, s), l(o, t));
     });
 export {
   l as appProxy,
