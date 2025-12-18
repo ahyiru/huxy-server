@@ -21,14 +21,6 @@
 npm install huxy-server
 ```
 
-或者直接使用此模板：
-
-```bash
-git clone https://github.com/ahyiru/huxy-server.git
-cd huxy-server
-npm install
-```
-
 ## 快速开始
 
 ### 基本使用
@@ -39,10 +31,8 @@ import startApp from 'huxy-server';
 const config = {
   port: 3000,
   host: 'localhost',
-  apiPrefix: '/api'
-};
-
-const proxyConfig = {
+  apiPrefix: '/api',
+  // proxy config
   proxys: [
     {
       name: 'ollama',
@@ -50,18 +40,27 @@ const proxyConfig = {
     }
   ],
   whiteAuthKeys: ['your-api-key'],
-  whitePathList: ['/health']
-};
-
-const jwtConfig = {
+  whitePathList: ['/health'],
+  // jwt config
   secret: 'your-secret-key',
   expiresIn: '30d',
-  issuer: 'your-app'
+  issuer: 'your-app',
 };
 
-startApp({config, proxyConfig, jwtConfig}, (huxyConfig, app, httpServer) => {
+startApp(config, (huxyConfig, app, httpServer) => {
   console.log('服务器启动成功:', huxyConfig);
 });
+```
+
+### 直接使用 `appProxy`
+
+也可直接使用 `appProxy`，只需传入你的服务 `app` 和代理 `config` 即可。
+
+```javascript
+import {appProxy} from 'huxy-server';
+
+appProxy(app, config);
+
 ```
 
 ### 环境变量
