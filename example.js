@@ -15,7 +15,7 @@ const config = {
   expiresIn: '1d',
 };
 
-const callback = (huxyConfig, app) => {
+const callback = (huxyConfig, app, huxyServer, logger) => {
   app.get('/huxyConfig', (req, res) => {
     logger.info('详细配置：', huxyConfig);
     res.status(200).json({ 
