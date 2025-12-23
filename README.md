@@ -52,6 +52,8 @@ startApp(config, (huxyConfig, app, httpServer) => {
 });
 ```
 
+`authToken` 默认值 '1234'，如不需要鉴权可以设置环境变量 `AUTH_TOKEN=false` 或设置 `config = {authToken: false}`。
+
 ### 直接使用 `appProxy`
 
 也可直接使用 `appProxy`，只需传入你的服务 `app` 和代理 `config` 即可。
@@ -79,7 +81,7 @@ JWT_EXPIRES_IN=30d
 JWT_ISSUER=huxyApp
 
 # 认证
-AUTH_TOKEN=your-email@example.com
+AUTH_TOKEN=your-auth-token
 ```
 
 ## API 代理

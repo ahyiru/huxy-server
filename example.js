@@ -5,6 +5,7 @@ const {startApp, logger} = huxyServer;
 const config = {
   port: 1234,
   apiPrefix: '/example',
+  authToken: false,
   // proxyConfig
   proxys: [{
     name: 'ollama',
