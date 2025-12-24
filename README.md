@@ -52,8 +52,6 @@ startApp(config, (huxyConfig, app, httpServer) => {
 });
 ```
 
-`authToken` 默认值 '1234'，如不需要鉴权可以设置环境变量 `AUTH_TOKEN=false` 或设置 `config = {authToken: false}`。
-
 ### 直接使用 `appProxy`
 
 也可直接使用 `appProxy`，只需传入你的服务 `app` 和代理 `config` 即可。
@@ -63,6 +61,35 @@ import {appProxy} from 'huxy-server';
 
 appProxy(app, config);
 
+```
+
+### API 鉴权配置
+
+包含 2 种鉴权方式：
+
+- apiKey：在请求头中 `x-api-key`或`x-huxy-auth` 里设置 `authToken` 值。
+- jwt：在请求头中 `authorization` 里设置 `Bearer ${token}` 进行用户验证。
+
+默认不需要鉴权 `authToken: false` ，设置环境变量 `AUTH_TOKEN=false` 或 `config = {authToken: false}` 即可。如需鉴权选择上述 2 种方式中的一种即可，优先进行 `authToken` 认证。
+
+可配置免认证路由，如：`whitePathList: ['/health', '/status']` 。
+
+也可配置免认证 `authKeys` ：如：`whiteAuthKeys: ['1234', '2234']` 。
+
+配置示例：
+
+```javascript
+const config = {
+  // apiKey
+  authToken: '1234',
+  // jwt
+  secret: 'your-secret-key',
+  expiresIn: '30d',
+  issuer: 'your-app',
+  // white list
+  whiteAuthKeys: ['1234', '2234'],
+  whitePathList: ['/health', '/status'],
+};
 ```
 
 ### 环境变量
