@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "http-proxy-middleware": "^3.0.5",
-    "huxy-node-server": "^1.0.6",
+    "huxy-node-server": "^1.0.7",
     "jsonwebtoken": "^9.0.3"
   },
   "engines": {
