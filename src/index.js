@@ -1,20 +1,20 @@
 import {
-  startServer as C,
-  startStatic as L,
-  logger as te,
-  createLogger as re,
-  dateTime as se,
-  localIPs as oe,
-  nodeArgs as ae,
-  getEnvConfig as ne,
-  checkPort as ie,
-  getDirName as pe,
-  resolvePath as ce,
+  startServer as L,
+  startStatic as U,
+  logger as re,
+  createLogger as se,
+  dateTime as oe,
+  localIPs as ae,
+  nodeArgs as ne,
+  getEnvConfig as ie,
+  checkPort as pe,
+  getDirName as ce,
+  resolvePath as ue,
 } from 'huxy-node-server';
-import {createProxyMiddleware as S, fixRequestBody as k} from 'http-proxy-middleware';
-import {dateTime as O} from 'huxy-node-server';
-import H from 'jsonwebtoken';
-var x = (r, {secret: e = '', ...t} = {}) => H.verify(r, e, t);
+import {createProxyMiddleware as k, fixRequestBody as O} from 'http-proxy-middleware';
+import {dateTime as M} from 'huxy-node-server';
+import $ from 'jsonwebtoken';
+var x = (r, {secret: e = '', ...t} = {}) => $.verify(r, e, t);
 var y =
   (r = {}) =>
   (e, t, s) => {
@@ -38,7 +38,7 @@ var y =
             : (e.log.warn({err: o, ip: e.ip}, '\u8BA4\u8BC1\u5931\u8D25: \u5185\u90E8\u670D\u52A1\u5668\u9519\u8BEF'), t.status(500).json({message: '\u5185\u90E8\u670D\u52A1\u5668\u9519\u8BEF'}));
     }
   };
-var $ =
+var v =
     ({whiteAuthKeys: r = [], whiteAuthPaths: e = [], config: t = {}}) =>
     (s, n, a) => {
       if (s.method === 'OPTIONS' || e.includes(s.path)) return a();
@@ -50,30 +50,30 @@ var $ =
       let {secret: c, expiresIn: p, algorithm: l, issuer: h} = t;
       y({secret: c, expiresIn: p, algorithm: l, issuer: h})(s, n, a);
     },
-  w = $;
-var v = ['origin', 'referer', 'x-forwarded-for', 'x-real-ip', 'cf-connecting-ip', 'cf-ipcountry', 'cf-ray', 'x-huxy-auth'],
-  I = ['x-powered-by', 'server'],
+  w = v;
+var I = ['origin', 'referer', 'x-forwarded-for', 'x-real-ip', 'cf-connecting-ip', 'cf-ipcountry', 'cf-ray', 'x-huxy-auth'],
+  R = ['x-powered-by', 'server'],
   A = (r, e) => {
     let t = new Headers(r);
-    return (v.forEach(s => t.delete(s)), t.set('Host', e), t.set('User-Agent', 'IHUXY-API/1.0'), t);
+    return (I.forEach(s => t.delete(s)), t.set('Host', e), t.set('User-Agent', 'IHUXY-API/1.0'), t);
   },
   P = r => {
     let e = new Headers(r);
     return (
-      I.forEach(t => e.delete(t)),
+      R.forEach(t => e.delete(t)),
       e.set('Access-Control-Allow-Origin', '*'),
       e.set('X-Content-Type-Options', 'nosniff'),
       e.get('content-type')?.includes('text/event-stream') && ((e['Cache-Control'] = 'no-cache, no-transform'), (e.Connection = 'keep-alive'), (e['X-Accel-Buffering'] = 'no')),
       e
     );
   };
-var R = r => Object.prototype.toString.call(r).slice(8, -1).toLowerCase(),
-  E = r => (R(r) === 'object' ? [r] : Array.isArray(r) ? r : []),
-  g = (r, e) => E(r).map(t => ((t.prefix = `${e}${t.prefix ?? (t.name ? `/${t.name}` : '')}`.replace('//', '/')), t)),
+var E = r => Object.prototype.toString.call(r).slice(8, -1).toLowerCase(),
+  S = r => (E(r) === 'object' ? [r] : Array.isArray(r) ? r : []),
+  g = (r, e) => S(r).map(t => ((t.prefix = `${e}${t.prefix ?? (t.name ? `/${t.name}` : '')}`.replace('//', '/')), t)),
   T = r => (Array.isArray(r) ? r : []).filter(Boolean),
   j = (r, e) => [...new Set(['/', '/health', e, ...(Array.isArray(r) ? r : [])])].filter(Boolean).map(t => `${e}${t}`.replace('//', '/'));
 var d = (r, e = '/') => {
-    let t = {status: 'OK', message: `API \u670D\u52A1\u5668\u8FD0\u884C\u4E2D \u{1F449} ${e}`, timestamp: O(), uptime: process.uptime(), memoryUsage: process.memoryUsage()};
+    let t = {status: 'OK', message: `API \u670D\u52A1\u5668\u8FD0\u884C\u4E2D \u{1F449} ${e}`, timestamp: M(), uptime: process.uptime(), memoryUsage: process.memoryUsage()};
     (r.get(e, (s, n) => {
       n.status(200).json(t);
     }),
@@ -81,17 +81,18 @@ var d = (r, e = '/') => {
         n.status(200).json(t);
       }));
   },
+  H = 0,
   W = ({target: r = 'http://', prefix: e, withPrefix: t, preserve: s = !0, ...n} = {}) => ({
     target: r,
     changeOrigin: !0,
     selfHandleResponse: !1,
     on: {
-      proxyReq: (a, o, i) => (!s && A(a.headers, r), k(a, o, i)),
+      proxyReq: (a, o, i) => (!s && A(a.headers, r), O(a, o, i)),
       proxyRes: (a, o, i) => {
         !s && P(a.headers);
       },
       error: (a, o, i) => {
-        (o.log.error({err: a}, '\u4EE3\u7406\u9519\u8BEF'), i.headersSent || i.status(502).json({error: '\u7F51\u5173\u9519\u8BEF'}));
+        (H || ((H = 1), o.log.error({err: a}, '\u4EE3\u7406\u9519\u8BEF')), i.headersSent || i.status(502).json({error: '\u7F51\u5173\u9519\u8BEF'}));
       },
     },
     ...n,
@@ -104,13 +105,13 @@ var d = (r, e = '/') => {
     let u = w({whiteAuthKeys: T(a), whitePathList: j(o, s), config: e});
     return (
       i.map(({prefix: c, target: p, withPrefix: l = !0, ...h}) => {
-        ((p = l ? `${p}${c}` : p), r.use(c, u, S(W({prefix: c, target: p, withPrefix: l, ...h}))), t.info(`\u2705 \u4EE3\u7406\u4E2D ${c} \u{1F449} ${p}`));
+        ((p = l ? `${p}${c}` : p), r.use(c, u, k(W({prefix: c, target: p, withPrefix: l, ...h}))), t.info(`\u2705 \u4EE3\u7406\u4E2D ${c} \u{1F449} ${p}`));
       }),
       !0
     );
   },
   m = B;
-var M = {
+var C = {
     port: parseInt(process.env.PORT || '8080', 10),
     host: process.env.HOST || 'localhost',
     apiPrefix: process.env.API_PREFIX || '/',
@@ -122,32 +123,32 @@ var M = {
     expiresIn: process.env.JWT_EXPIRES_IN || '30d',
     issuer: process.env.JWT_ISSUER || 'huxyApp',
   },
-  f = M;
-var U = (r, e) =>
-    C({...f, ...r}, async (t, s, n, a) => {
+  f = C;
+var X = (r, e) =>
+    L({...f, ...r}, async (t, s, n, a) => {
       let o = m(s, t, a);
       (await e?.(t, s, n, a), o && d(s, t.apiPrefix));
     }),
-  de = U,
-  he = (r, e) =>
-    L({...f, ...r}, async (t, s, n, a) => {
+  he = X,
+  me = (r, e) =>
+    U({...f, ...r}, async (t, s, n, a) => {
       let o = m(s, t, a);
       (await e?.(t, s, n, a), d(s, t.apiPrefix), o && d(s, t.apiPrefix));
     });
 export {
   m as appProxy,
-  ie as checkPort,
-  re as createLogger,
-  se as dateTime,
-  de as default,
-  pe as getDirName,
-  ne as getEnvConfig,
-  oe as localIPs,
-  te as logger,
-  ae as nodeArgs,
-  ce as resolvePath,
-  U as startApp,
-  C as startServer,
-  L as startStatic,
-  he as startStaticApp,
+  pe as checkPort,
+  se as createLogger,
+  oe as dateTime,
+  he as default,
+  ce as getDirName,
+  ie as getEnvConfig,
+  ae as localIPs,
+  re as logger,
+  ne as nodeArgs,
+  ue as resolvePath,
+  X as startApp,
+  L as startServer,
+  U as startStatic,
+  me as startStaticApp,
 };
