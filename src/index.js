@@ -1,15 +1,14 @@
 import {
   startServer as U,
   startStatic as X,
-  logger as se,
-  createLogger as oe,
-  dateTime as ae,
-  localIPs as ne,
-  nodeArgs as ie,
-  getEnvConfig as pe,
-  checkPort as ce,
-  getDirName as ue,
-  resolvePath as le,
+  createLogger as se,
+  dateTime as oe,
+  localIPs as ae,
+  nodeArgs as ne,
+  getEnvConfig as ie,
+  checkPort as pe,
+  getDirName as ce,
+  resolvePath as ue,
 } from 'huxy-node-server';
 import {createProxyMiddleware as k, fixRequestBody as O} from 'http-proxy-middleware';
 import {dateTime as W} from 'huxy-node-server';
@@ -54,8 +53,8 @@ var R =
       let n = e.headers,
         p = n['x-huxy-auth'] || n['x-api-key'] || n.authorization?.split('Bearer ')[1];
       if ((p && p === s) || i.includes(p)) return o();
-      let {secret: u, expiresIn: T, algorithm: j, issuer: H} = r;
-      m({secret: u, expiresIn: T, algorithm: j, issuer: H})(e, t, o);
+      let {secret: u, expiresIn: g, algorithm: j, issuer: H} = r;
+      m({secret: u, expiresIn: g, algorithm: j, issuer: H})(e, t, o);
     },
   w = R;
 var E = ['origin', 'referer', 'x-forwarded-for', 'x-real-ip', 'cf-connecting-ip', 'cf-ipcountry', 'cf-ray', 'x-huxy-auth'],
@@ -83,7 +82,7 @@ var c = (r, e = '/') => {
         i.status(200).json(t);
       }));
   },
-  g = 0,
+  T = 0,
   B = ({target: r = 'http://', prefix: e, withPrefix: t, preserve: o = !0, ...i} = {}) => ({
     target: r,
     changeOrigin: !0,
@@ -94,7 +93,7 @@ var c = (r, e = '/') => {
         !o && P(a.headers);
       },
       error: (a, s, n) => {
-        (g || ((g = 1), s.log.error({err: a}, '\u4EE3\u7406\u9519\u8BEF')), n.headersSent || n.status(502).json({error: '\u7F51\u5173\u9519\u8BEF'}));
+        (T || ((T = 1), s.log.error({err: a}, '\u4EE3\u7406\u9519\u8BEF')), n.headersSent || n.status(502).json({error: '\u7F51\u5173\u9519\u8BEF'}));
       },
     },
     ...i,
@@ -130,26 +129,25 @@ var _ = (r, e) =>
       let s = l(o, t, a);
       (await e?.(t, o, i, a), s && c(o, t.apiPrefix));
     }),
-  me = _,
-  fe = (r, e) =>
+  de = _,
+  me = (r, e) =>
     X({...h, ...r}, async (t, o, i, a) => {
       let s = l(o, t, a);
       (await e?.(t, o, i, a), c(o, t.apiPrefix), s && c(o, t.apiPrefix));
     });
 export {
   l as appProxy,
-  ce as checkPort,
-  oe as createLogger,
-  ae as dateTime,
-  me as default,
-  ue as getDirName,
-  pe as getEnvConfig,
-  ne as localIPs,
-  se as logger,
-  ie as nodeArgs,
-  le as resolvePath,
+  pe as checkPort,
+  se as createLogger,
+  oe as dateTime,
+  de as default,
+  ce as getDirName,
+  ie as getEnvConfig,
+  ae as localIPs,
+  ne as nodeArgs,
+  ue as resolvePath,
   _ as startApp,
   U as startServer,
   X as startStatic,
-  fe as startStaticApp,
+  me as startStaticApp,
 };
