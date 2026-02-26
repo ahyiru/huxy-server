@@ -114,7 +114,7 @@ var M = {
     proxys: [],
     whitePathList: ['/health'],
     algorithm: 'HS256',
-    secret: process.env.JWT_SECRET || 'hy123',
+    secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN || '30d',
     issuer: process.env.JWT_ISSUER || 'huxyApp',
   },
