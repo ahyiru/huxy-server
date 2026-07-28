@@ -1,6 +1,6 @@
 import * as huxyServer from './src/index.js';
 
-const {startApp, logger} = huxyServer;
+const {startApp} = huxyServer;
 
 const config = {
   port: 1234,
@@ -14,6 +14,12 @@ const config = {
   // jwtConfig
   secret: '1234',
   expiresIn: '1d',
+  // basic auth
+  basicAuth: {
+    users: {
+      admin: '123456',
+    },
+  },
 };
 
 const callback = (huxyConfig, app, huxyServer, logger) => {
@@ -26,5 +32,3 @@ const callback = (huxyConfig, app, huxyServer, logger) => {
 };
 
 const huxyProxyServer = await startApp(config, callback);
-
-logger.info(huxyProxyServer);
