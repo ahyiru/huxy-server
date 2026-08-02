@@ -159,7 +159,7 @@ var L = (r, e = '/') => {
       },
       error: (n, a, i) => {
         let o = a.url;
-        (!o.includes('EIO=') && !o.includes('/socket.io') && a.log.error({err: n}, '\u4EE3\u7406\u9519\u8BEF'), i.headersSent || i.status(502).json({error: '\u7F51\u5173\u9519\u8BEF'}));
+        !o.includes('EIO=') && !o.includes('/socket.io') && (a.log.error({err: n}, '\u4EE3\u7406\u9519\u8BEF'), i.headersSent || i.status(502).json({error: '\u7F51\u5173\u9519\u8BEF'}));
       },
     },
     ...u,
