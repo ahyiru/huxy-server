@@ -9,6 +9,7 @@
 
 - ✅ **API 代理服务**：内置 HTTP 代理中间件，支持多目标代理
 - ✅ **JWT 鉴权**：完整的 JWT 认证解决方案
+- ✅ **Basic Auth 认证**：自定义页面 Basic Auth 认证
 - ✅ **灵活配置**：支持环境变量和自定义配置
 - ✅ **安全头处理**：自动处理请求和响应头
 - ✅ **白名单机制**：支持 API 密钥和路径白名单
@@ -145,6 +146,27 @@ curl -H "X-Huxy-Auth: your-api-key" http://localhost:2345/api/ollama/v1/models
 
 # 使用 JWT 令牌
 curl -H "Authorization: Bearer your-jwt-token" http://localhost:2345/api/ollama/v1/models
+```
+
+## Basic Auth 认证
+
+```javascript
+const config = {
+  port: 1234,
+  apiPrefix: '/example',
+  authToken: false,
+  proxys: [{
+    name: 'webui',
+    target: 'http://192.168.0.111:8000',
+  }],
+  basicAuth: {
+    users: {
+      admin: '123456',
+    },
+  },
+};
+
+页面输入用户名和密码即可访问。
 ```
 
 ## JWT 鉴权

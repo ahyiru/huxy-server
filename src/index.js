@@ -14,7 +14,11 @@ var H = {};
 B(H, {default: () => E});
 import {timingSafeEqual as $} from 'node:crypto';
 function E({realm: r = 'Restricted', users: e, authorize: t, skip: s, unauthorizedResponse: u} = {}) {
-  let n = o => (typeof s == 'function' ? s(o) : s instanceof RegExp ? s.test(o.path) : Array.isArray(s) ? s.includes(o.path) : !1),
+  let n = o =>
+      typeof s == 'function' ? s(o)
+      : s instanceof RegExp ? s.test(o.path)
+      : Array.isArray(s) ? s.includes(o.path)
+      : !1,
     a = (o, c, p) => {
       if (typeof t == 'function') return t(o, c, p);
       if (e) {
@@ -76,30 +80,53 @@ var A =
   (r = {}) =>
   (e, t, s) => {
     let u = e.headers.authorization;
-    if (!u) return (e.log.error('\u8BA4\u8BC1\u5931\u8D25: \u7F3A\u5C11\u8BA4\u8BC1\u4FE1\u606F'), t.status(401).json({message: '\u7F3A\u5C11\u8BA4\u8BC1\u4FE1\u606F'}));
+    if (!u)
+      return (
+        e.log.error('\u8BA4\u8BC1\u5931\u8D25: \u7F3A\u5C11\u8BA4\u8BC1\u4FE1\u606F'),
+        t.status(401).json({message: '\u7F3A\u5C11\u8BA4\u8BC1\u4FE1\u606F'})
+      );
     if (!u.startsWith('Bearer '))
-      return (e.log.error('\u8BA4\u8BC1\u5931\u8D25: \u672A\u63D0\u4F9B\u6709\u6548\u8BA4\u8BC1\u4FE1\u606F'), t.status(401).json({message: '\u672A\u63D0\u4F9B\u6709\u6548\u8BA4\u8BC1\u4FE1\u606F'}));
+      return (
+        e.log.error('\u8BA4\u8BC1\u5931\u8D25: \u672A\u63D0\u4F9B\u6709\u6548\u8BA4\u8BC1\u4FE1\u606F'),
+        t.status(401).json({message: '\u672A\u63D0\u4F9B\u6709\u6548\u8BA4\u8BC1\u4FE1\u606F'})
+      );
     let n = u.split(' ')[1];
-    if (!n) return (e.log.error('\u8BA4\u8BC1\u5931\u8D25: \u8BBF\u95EE\u4EE4\u724C\u7F3A\u5931'), t.status(401).json({message: '\u8BBF\u95EE\u4EE4\u724C\u7F3A\u5931'}));
+    if (!n)
+      return (
+        e.log.error('\u8BA4\u8BC1\u5931\u8D25: \u8BBF\u95EE\u4EE4\u724C\u7F3A\u5931'),
+        t.status(401).json({message: '\u8BBF\u95EE\u4EE4\u724C\u7F3A\u5931'})
+      );
     try {
       let a = x(n, r);
       (e.log.info(a, '\u8BA4\u8BC1\u6210\u529F'), (e.user = a), s());
     } catch (a) {
       let i = a.type || a.name;
-      return i === 'TokenExpiredError'
-        ? (e.log.error({ip: e.ip}, '\u8BA4\u8BC1\u5931\u8D25: \u4EE4\u724C\u5DF2\u8FC7\u671F'), t.status(401).json({message: '\u4EE4\u724C\u5DF2\u8FC7\u671F'}))
-        : i === 'JsonWebTokenError'
-          ? (e.log.error({ip: e.ip}, '\u8BA4\u8BC1\u5931\u8D25: \u65E0\u6548\u7684\u4EE4\u724C'), t.status(403).json({message: '\u65E0\u6548\u7684\u4EE4\u724C'}))
-          : i === 'AuthorizationError'
-            ? (e.log.error({ip: e.ip}, `\u8BA4\u8BC1\u5931\u8D25: ${a.message}`), t.status(a.status).json({message: a.message}))
-            : (e.log.error({err: a, ip: e.ip}, '\u8BA4\u8BC1\u5931\u8D25: \u5185\u90E8\u670D\u52A1\u5668\u9519\u8BEF'), t.status(500).json({message: '\u5185\u90E8\u670D\u52A1\u5668\u9519\u8BEF'}));
+      return (
+        i === 'TokenExpiredError' ?
+          (e.log.error({ip: e.ip}, '\u8BA4\u8BC1\u5931\u8D25: \u4EE4\u724C\u5DF2\u8FC7\u671F'),
+          t.status(401).json({message: '\u4EE4\u724C\u5DF2\u8FC7\u671F'}))
+        : i === 'JsonWebTokenError' ?
+          (e.log.error({ip: e.ip}, '\u8BA4\u8BC1\u5931\u8D25: \u65E0\u6548\u7684\u4EE4\u724C'),
+          t.status(403).json({message: '\u65E0\u6548\u7684\u4EE4\u724C'}))
+        : i === 'AuthorizationError' ?
+          (e.log.error({ip: e.ip}, `\u8BA4\u8BC1\u5931\u8D25: ${a.message}`),
+          t.status(a.status).json({message: a.message}))
+        : (e.log.error({err: a, ip: e.ip}, '\u8BA4\u8BC1\u5931\u8D25: \u5185\u90E8\u670D\u52A1\u5668\u9519\u8BEF'),
+          t.status(500).json({message: '\u5185\u90E8\u670D\u52A1\u5668\u9519\u8BEF'}))
+      );
     }
   };
 var h = r => Object.prototype.toString.call(r).slice(8, -1).toLowerCase(),
-  W = r => (h(r) === 'object' ? [r] : Array.isArray(r) ? r : []),
+  W = r =>
+    h(r) === 'object' ? [r]
+    : Array.isArray(r) ? r
+    : [],
   w = (r, e) => W(r).map(t => ((t.prefix = `${e}${t.prefix ?? (t.name ? `/${t.name}` : '')}`.replace('//', '/')), t)),
   g = r => (Array.isArray(r) ? r : []).filter(Boolean),
-  P = (r, e) => [...new Set(['/', '/health', e, ...(Array.isArray(r) ? r : [])])].filter(Boolean).map(t => `${e}${t}`.replace('//', '/'));
+  P = (r, e) =>
+    [...new Set(['/', '/health', e, ...(Array.isArray(r) ? r : [])])]
+      .filter(Boolean)
+      .map(t => `${e}${t}`.replace('//', '/'));
 var k =
     (r = {}) =>
     (e, t, s) => {
@@ -116,7 +143,16 @@ var k =
       A({secret: p, expiresIn: f, algorithm: l, issuer: y})(e, t, s);
     },
   T = k;
-var C = ['origin', 'referer', 'x-forwarded-for', 'x-real-ip', 'cf-connecting-ip', 'cf-ipcountry', 'cf-ray', 'x-huxy-auth'],
+var C = [
+    'origin',
+    'referer',
+    'x-forwarded-for',
+    'x-real-ip',
+    'cf-connecting-ip',
+    'cf-ipcountry',
+    'cf-ray',
+    'x-huxy-auth',
+  ],
   z = ['x-powered-by', 'server'],
   I = (r, e) => {
     let t = new Headers(r);
@@ -128,19 +164,35 @@ var C = ['origin', 'referer', 'x-forwarded-for', 'x-real-ip', 'cf-connecting-ip'
       z.forEach(t => e.delete(t)),
       e.set('Access-Control-Allow-Origin', '*'),
       e.set('X-Content-Type-Options', 'nosniff'),
-      e.get('content-type')?.includes('text/event-stream') && ((e['Cache-Control'] = 'no-cache, no-transform'), (e.Connection = 'keep-alive'), (e['X-Accel-Buffering'] = 'no')),
+      e.get('content-type')?.includes('text/event-stream') &&
+        ((e['Cache-Control'] = 'no-cache, no-transform'),
+        (e.Connection = 'keep-alive'),
+        (e['X-Accel-Buffering'] = 'no')),
       e
     );
   };
 var X = async (r, e) => {
     let t = (await Promise.resolve().then(() => (S(), H))).default;
     e.use(
-      t({realm: 'Ihuxy Team', unauthorizedResponse: s => ({message: '\u672A\u6388\u6743\uFF0C\u8BF7\u8054\u7CFB Ihuxy \u5DE5\u4F5C\u5BA4\uFF01ah.yiru@gmail.com'}), users: {ihuxy: '123456'}, ...r}),
+      t({
+        realm: 'Ihuxy Team',
+        unauthorizedResponse: s => ({
+          message: '\u672A\u6388\u6743\uFF0C\u8BF7\u8054\u7CFB Ihuxy \u5DE5\u4F5C\u5BA4\uFF01ah.yiru@gmail.com',
+        }),
+        users: {ihuxy: '123456'},
+        ...r,
+      }),
     );
   },
   v = X;
 var L = (r, e = '/') => {
-    let t = {status: 'OK', message: `API \u670D\u52A1\u5668\u8FD0\u884C\u4E2D \u{1F449} ${e}`, timestamp: K(), uptime: process.uptime(), memoryUsage: process.memoryUsage()};
+    let t = {
+      status: 'OK',
+      message: `API \u670D\u52A1\u5668\u8FD0\u884C\u4E2D \u{1F449} ${e}`,
+      timestamp: K(),
+      uptime: process.uptime(),
+      memoryUsage: process.memoryUsage(),
+    };
     r.get(`${e}/health`.replace('//', '/'), (s, u) => {
       u.status(200).json(t);
     });
@@ -159,7 +211,10 @@ var L = (r, e = '/') => {
       },
       error: (n, a, i) => {
         let o = a.url;
-        !o.includes('EIO=') && !o.includes('/socket.io') && (a.log.error({err: n}, '\u4EE3\u7406\u9519\u8BEF'), i.headersSent || i.status(502).json({error: '\u7F51\u5173\u9519\u8BEF'}));
+        !o.includes('EIO=') &&
+          !o.includes('/socket.io') &&
+          (a.log.error({err: n}, '\u4EE3\u7406\u9519\u8BEF'),
+          i.headersSent || i.status(502).json({error: '\u7F51\u5173\u9519\u8BEF'}));
       },
     },
     ...u,
@@ -171,7 +226,9 @@ var L = (r, e = '/') => {
     (h(n) === 'object' && (await v(n, e)),
       t.info(`\u{1F4DD} API \u63A5\u53E3\u5730\u5740: ${r.protocol}://${r.host}:${r.port}${s}`),
       a.map(({prefix: i, target: o, withPrefix: c = !0, ...p}) => {
-        ((o = c ? `${o}${i}` : o), e.use(i, T(r), _(D({prefix: i, target: o, withPrefix: c, ...p}))), t.info(`\u2705 \u4EE3\u7406\u4E2D ${i} \u{1F449} ${o}`));
+        ((o = c ? `${o}${i}` : o),
+          e.use(i, T(r), _(D({prefix: i, target: o, withPrefix: c, ...p}))),
+          t.info(`\u2705 \u4EE3\u7406\u4E2D ${i} \u{1F449} ${o}`));
       }),
       L(e, s));
   },
