@@ -235,7 +235,7 @@ var L = (r, e = '/') => {
   d = N;
 var F = {
     port: parseInt(process.env.PORT || '8080', 10),
-    host: process.env.HOST || 'localhost',
+    host: process.env.HOST,
     apiPrefix: process.env.API_PREFIX || '/',
     authToken: !1,
     proxys: [],
@@ -243,7 +243,7 @@ var F = {
     algorithm: 'HS256',
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN || '30d',
-    issuer: process.env.JWT_ISSUER || 'huxyApp',
+    issuer: process.env.JWT_ISSUER,
   },
   m = F;
 var Q = (r, e) =>
