@@ -3,6 +3,8 @@
 [![npm version](https://badge.fury.io/js/huxy-node-server.svg)](https://badge.fury.io/js/huxy-node-server)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+**_请使用 [huxy-node-server](https://www.npmjs.com/package/huxy-node-server) ，该插件已废弃。_**
+
 一个精炼、高性能、全面的 Express.js 服务器模板，基于 [huxy-node-server](https://www.npmjs.com/package/huxy-node-server) 构建，添加了 API 代理服务和 JWT 鉴权功能。
 
 ## 特性
